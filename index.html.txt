@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanshu Rathore | Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-white: #ffffff;
+            --text-gray: #a3a3a3;
+            --primary: #00f2ea; /* Cyan Neon */
+            --secondary: #ff0050; /* Red/Pink Neon */
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* --- COOL GRID BACKGROUND --- */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            opacity: 0.2;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Glowing Orb effect */
+        .glow-spot {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 234, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: -1px;
+        }
+        
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover::after { width: 100%; }
+
+        .menu-btn { display: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer; }
+
+        /* --- SECTIONS COMMON --- */
+        section {
+            padding: 120px 10%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 80px;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #a3a3a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: 0.3s;
+        }
+
+        .btn:hover { color: #000; }
+        .btn:hover::before { width: 100%; }
+
+        /* Image Box */
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .img-frame {
+            width: 350px;
+            height: 450px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+        .img-frame:hover img { filter: grayscale(0%); }
+
+        /* Abstract decoration behind image */
+        .img-frame::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary);
+            z-index: -1;
+            transition: 0.3s;
+        }
+
+        .img-frame:hover::after {
+            top: 10px;
+            right: -10px;
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .info-item a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .info-item a:hover { color: var(--primary); }
+
+        .social-bar {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-bar a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-bar a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* --- CHATBOT STYLES --- */
+        .chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+            z-index: 1001;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.6);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            z-index: 1001;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chat-header h3 { font-size: 1rem; color: var(--primary); }
+        .close-chat { cursor: pointer; color: var(--text-gray); }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .bot-msg {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            color: var(--text-white);
+        }
+
+        .user-msg {
+            background: var(--primary);
+            color: #000;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            font-weight: 500;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            outline: none;
+        }
+
+        .chat-input-area button {
+            background: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        
+        .chat-input-area button:hover { transform: scale(1.1); }
+        
+        .loading-dots:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { color: rgba(0,0,0,0); text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0);}
+            40% { color: white; text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0);}
+            60% { text-shadow: .25em 0 0 white, .5em 0 0 rgba(0,0,0,0);}
+            80%, 100% { text-shadow: .25em 0 0 white, .5em 0 0 white;}
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            #home { flex-direction: column; text-align: center; gap: 3rem; justify-content: center; }
+            .hero-text h1 { font-size: 3rem; }
+            .hero-img { justify-content: center; width: 100%; }
+            .img-frame { width: 280px; height: 350px; }
+            
+            .contact-content { grid-template-columns: 1fr; }
+            
+            .menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #000;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s;
+                border-left: 1px solid var(--border);
+            }
+            .nav-links.active { right: 0; }
+            
+            .chat-window {
+                width: 90%;
+                right: 5%;
+                bottom: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VISUAL BACKGROUNDS -->
+    <div class="bg-grid"></div>
+    <div class="glow-spot"></div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">PRIYANSHU<span>.</span></div>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+            <li><a href="#about" onclick="toggleMenu()">About</a></li>
+            <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home">
+        <div class="hero-text">
+            <span style="color: var(--primary); letter-spacing: 2px; font-weight: 600;">HELLO THERE</span>
+            <h1>I'm Priyanshu Rathore</h1>
+            <p>12th-grade student | Web Developer | Photographer<br> Based in Kota, Rajasthan.</p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+
+        <div class="hero-img">
+            <div class="img-frame">
+                <!-- 
+                   UPDATED: Using your GitHub Profile Picture (Assuming "get up" meant GitHub).
+                   This is much more reliable for the online preview!
+                -->
+                <img src="https://github.com/priyanshurathor-19.png" alt="Priyanshu Rathore" onerror="this.onerror=null; this.src='IMG_2929.PNG';">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="section-header">
+            <span class="section-tag">WHO I AM</span>
+            <h2 class="section-title">About Me</h2>
+        </div>
+        <div style="max-width: 800px;">
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-gray); margin-bottom: 1.5rem;">
+                I am a student currently living in <strong>Kota, Rajasthan</strong>. While I am focusing on my 12th-grade studies, I have a deep passion for technology. 
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-gray);">
+                I started learning <strong>Web Development</strong> because I wanted to create things that live on the internet. I am also exploring <strong>UI/UX design</strong> to understand how to make digital products user-friendly. When I need a break from the screen, I grab my camera for <strong>Photography and Videography</strong>.
+            </p>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="section-header">
+            <span class="section-tag">WHAT I DO</span>
+            <h2 class="section-title">My Skills</h2>
+        </div>
+        
+        <div class="skills-grid">
+            <!-- Skill 1 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-code skill-icon"></i>
+                <h3>Web Development</h3>
+                <p>Learning HTML, CSS, and basic JavaScript to build responsive websites.</p>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-palette skill-icon"></i>
+                <h3>UI/UX Interest</h3>
+                <p>Studying layouts, typography, and color theory to create clean designs.</p>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-camera-retro skill-icon"></i>
+                <h3>Photography</h3>
+                <p>Capturing moments and understanding visual composition.</p>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-film skill-icon"></i>
+                <h3>Videography</h3>
+                <p>Creating and editing short video content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="section-header">
+            <span class="section-tag">CONNECT</span>
+            <h2 class="section-title">Contact Me</h2>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Let's Chat</h3>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                    I am always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+                </p>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:priyanshurathor612@gmail.com">priyanshurathor612@gmail.com</a>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+917413078090">+91 74130 78090</a>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://www.instagram.com/_pr1yanshu_?igsh=emJveHM5aGVmZnpn&utm_source=qr" target="_blank">Instagram</a>
+                </div>
+
+                <div class="social-bar">
+                    <a href="https://github.com/priyanshurathor-19" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/priyanshu-rathor-792535312" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Simple Form for Visuals -->
+            <div style="background: var(--glass); padding: 2rem; border: 1px solid var(--border);">
+                <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                    <input type="text" placeholder="Name" style="width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white;">
+                    <input type="email" placeholder="Email" style="width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white;">
+                    <textarea rows="4" placeholder="Message" style="width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white;"></textarea>
+                    <button class="btn" style="width: 100%; cursor: pointer;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHATBOT UI -->
+    <button class="chat-btn" onclick="toggleChat()">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h3>Ask AI about Priyanshu ✨</h3>
+            <span class="close-chat" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-msg">Hi! I'm Priyanshu's AI assistant. Ask me anything about his skills or projects!</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+
+        // CHATBOT LOGIC
+        const chatWindow = document.getElementById('chatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const apiKey = ""; // API Key injected at runtime
+
+        function toggleChat() {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function appendMessage(text, sender) {
+            const div = document.createElement('div');
+            div.classList.add('message', sender === 'user' ? 'user-msg' : 'bot-msg');
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            chatInput.value = '';
+            
+            // Loading indicator
+            const loadingDiv = document.createElement('div');
+            loadingDiv.classList.add('message', 'bot-msg', 'loading-dots');
+            loadingDiv.textContent = "Thinking";
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                // System prompt with context about Priyanshu
+                const systemPrompt = `
+                    You are a friendly and helpful AI assistant for Priyanshu Rathore's personal portfolio website.
+                    Here is the context about Priyanshu:
+                    - Name: Priyanshu Rathore
+                    - Role: 12th Grade Student, Beginner Web Developer, Photographer, Videographer.
+                    - Location: Kota, Rajasthan, India.
+                    - Skills: HTML, CSS, Basic JavaScript, UI/UX Design interest, Photography, Videography.
+                    - Contact Email: priyanshurathor612@gmail.com
+                    - Contact Phone: +91 74130 78090
+                    - Instagram: _pr1yanshu_
+                    - Goal: To showcase his beginner journey and find opportunities to learn.
+                    
+                    Instructions:
+                    - Answer questions as if you are representing him.
+                    - Keep answers concise, professional, yet friendly (he is a student).
+                    - If asked about complex coding topics, admit he is a beginner but eager to learn.
+                    - If asked for "Source Code", say this site is built with HTML/CSS.
+                `;
+
+                const response = await fetchWithRetry(text, systemPrompt);
+                
+                chatMessages.removeChild(loadingDiv);
+                appendMessage(response, 'bot');
+
+            } catch (error) {
+                console.error(error);
+                chatMessages.removeChild(loadingDiv);
+                appendMessage("Oops! I'm having trouble connecting to my brain right now. Try again later.", 'bot');
+            }
+        }
+
+        async function fetchWithRetry(userText, systemPrompt, retries = 3, delay = 1000) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: userText }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+                } catch (err) {
+                    if (i === retries - 1) throw err;
+                    await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
